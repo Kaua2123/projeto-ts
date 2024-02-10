@@ -11,3 +11,4 @@ libraryManager.lendBook(0);
 console.log(libraryManager.books[0]);
 libraryManager.returnBook(0);
 console.log(libraryManager.books[0]);
+libraryManager.searchBook('One Piece');
