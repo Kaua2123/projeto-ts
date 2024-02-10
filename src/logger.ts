@@ -1,5 +1,7 @@
 export class Logger {
   constructor() {}
 
-  showMsg(): void {}
+  showMsg(msg: string): void {
+    console.log(msg);
+  }
 }

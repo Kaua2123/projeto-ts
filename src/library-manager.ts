@@ -1,9 +1,10 @@
 import { BookProtocol } from './interfaces/book-protocol';
+import { Logger } from './logger';
 
 export class LibraryManager {
-  public readonly _books: BookProtocol[] = [];
+  private readonly _books: BookProtocol[] = [];
 
-  constructor() {}
+  constructor(public readonly logger: Logger) {}
 
   bookNotFound(index: number): boolean {
     return !this._books[index];
@@ -11,29 +12,32 @@ export class LibraryManager {
 
   addBook(book: BookProtocol): void {
     this._books.push(book);
-    console.log('Adicionando livro:', book);
+    this.logger.showMsg(`Adicionado livro`);
   }
 
   get books(): BookProtocol[] {
-    console.log('Listando livros:');
     return this._books;
   }
 
   lendBook(index: number): boolean {
     if (this.bookNotFound(index)) {
-      console.error('Livro não encontrado.');
+      this.logger.showMsg('Erro: livro não encontrado.');
       return false;
     }
-    console.log('Você pegou este livro emprestado:', this._books[index].title);
+    this.logger.showMsg(
+      `Você pegou este livro emprestado: ${this._books[index].title}`,
+    );
     return (this._books[index].disponibility = false);
   }
 
   returnBook(index: number): boolean {
     if (this.bookNotFound(index)) {
-      console.error('Livro não encontrado.');
+      this.logger.showMsg('Erro: livro não encontrado.');
       return false;
     }
-    console.log('Você devolveu este livro:', this._books[index].title);
+    this.logger.showMsg(
+      `Você devolveu este livro: ${this._books[index].title}`,
+    );
     return (this._books[index].disponibility = true);
   }
 
@@ -42,7 +46,7 @@ export class LibraryManager {
       if (book.title.toLowerCase().includes(text.toLowerCase())) return book;
       if (book.author.toLowerCase().includes(text.toLowerCase())) return book;
     });
-    console.log('Resultados para:', text);
+    this.logger.showMsg(`Resultados para: ${text}`);
     console.log(booksFiltered);
     return booksFiltered;
   }

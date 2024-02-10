@@ -1,7 +1,9 @@
 import { Book } from './book';
 import { LibraryManager } from './library-manager';
+import { Logger } from './logger';
 
-const libraryManager = new LibraryManager();
+const logger = new Logger();
+const libraryManager = new LibraryManager(logger);
 libraryManager.addBook(
   new Book('O nome do vento', 'Patrick Rothfuss', 2007, true),
 );
