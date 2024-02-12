@@ -1,10 +1,10 @@
 import { BookProtocol } from './interfaces/book-protocol';
-import { Logger } from './logger';
+import { LoggerProtocol } from './interfaces/logger-protocol';
 
 export class LibraryManager {
   private readonly _books: BookProtocol[] = [];
 
-  constructor(public readonly logger: Logger) {}
+  constructor(public readonly logger: LoggerProtocol) {}
 
   bookNotFound(index: number): boolean {
     return !this._books[index];
