@@ -1,8 +1,7 @@
 import { BookProtocol } from './interfaces/book-protocol';
-import { LibraryManagerProtocol } from './interfaces/library-manager-protocol';
 import { LoggerProtocol } from './interfaces/logger-protocol';
 
-export class LibraryManager implements LibraryManagerProtocol {
+export class LibraryManager {
   private readonly _books: BookProtocol[] = [];
 
   constructor(public readonly logger: LoggerProtocol) {}
