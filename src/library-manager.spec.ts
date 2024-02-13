@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Book } from './book';
 import { BookProtocol } from './interfaces/book-protocol';
 import { LoggerProtocol } from './interfaces/logger-protocol';
 import { LibraryManager } from './library-manager';
@@ -47,11 +48,21 @@ describe('Library Manager', () => {
     expect(sutSpy).toHaveBeenCalledTimes(1);
   });
 
+  it('should have 2 books', () => {
+    const { sut } = createSutWithBooks();
+    expect(sut.books.length).toBe(2);
+  });
+
   it('should lend book', () => {
     const { sut } = createSutWithBooks();
     const sutSpy = jest.spyOn(sut, 'lendBook');
     sut.lendBook(0);
     expect(sutSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return false if the book at the selected index is not found when lending books', () => {
+    const { sut } = createSutWithBooks();
+    expect(sut.lendBook(20)).toBe(false);
   });
 
   it('should return book', () => {
@@ -61,10 +72,20 @@ describe('Library Manager', () => {
     expect(sutSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should search for books', () => {
+  it('should return false if the book at the selected index is not found when returning books', () => {
     const { sut } = createSutWithBooks();
-    const sutSpy = jest.spyOn(sut, 'searchBook');
-    sut.searchBook('searching...');
-    expect(sutSpy).toHaveBeenCalledTimes(1);
+    expect(sut.returnBook(20)).toBe(false);
+  });
+
+  it('should search by title and return a book', () => {
+    const { sut } = createSutWithBooks();
+    const books = sut.books;
+    expect(sut.searchBook('Livro')).toEqual(books);
+  });
+
+  it('should search by author and return a book', () => {
+    const { sut } = createSutWithBooks();
+    const books = sut.books;
+    expect(sut.searchBook('Autor')).toEqual(books);
   });
 });
